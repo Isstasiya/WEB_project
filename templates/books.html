@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2 align='center'>Books</h2>
+    {% if current_user.is_authenticated and current_user.user_type == 1 %}
+        <a href="add_book" class="btn btn-primary">Add book</a>
+        <a href="list_of_genres" class="btn btn-primary">Genres</a>
+        <a href="list_of_regions" class="btn btn-primary">Regions</a>
+    {% elif current_user.is_authenticated and current_user.user_type == 2 %}
+        <a href="basket" class="btn btn-primary">Basket</a>
+        <a href="orders_buy" class="btn btn-primary">Orders</a>
+    {% endif %}
+    {% for i in j %}
+        {% if i.quantity > 0 or (current_user.is_authenticated and current_user.user_type == 1) %}
+        <h4>{{ i.name.capitalize() }}</h4>
+        <div class="table_container">
+            <table class="my_table" style="border-color: #90a68d">
+                <tr class="my_row">
+                    <td class="ordinary" align="center" rowspan="2"><img src='{{ i.image }}'></td>
+                    <td class="ordinary" align="center" colspan="3">
+                        Genre: {{gen}}
+                        {{ i.description }}
+                    </td>
+                </tr>
+                {% if current_user.is_authenticated and current_user.user_type == 2 %}
+                    <tr class="my_row">
+                        <td class="ordinary" align="center"><a href="/add_like/{{ i.id }}">Like: {{ i.like }}</a></td>
+                        <td class="ordinary" align="center"><a href="/add_dislike/{{ i.id }}">Dislike: {{ i.dislike }}</a></td>
+                        <td class="ordinary" align="center"><a href="/add_in_basket/{{ i.id }}">Add in basket</a></td>
+                    </tr>
+                {% elif current_user.is_authenticated and current_user.user_type == 1 %}
+                <tr class="my_row">
+                    <td class="ordinary" align="center"><a href="/add_like/{{ i.id }}">Like: {{ i.like }}</a></td>
+                    <td class="ordinary" align="center"><a href="/add_dislike/{{ i.id }}">Dislike: {{ i.dislike }}</a></td>
+                    <td class="ordinary" align="center">Quantity: {{ i.quantity }}</td>
+                </tr>
+                {% endif %}
+            </table>
+        </div>
+        <br>
+        {% if current_user.is_authenticated and current_user.user_type == 1 %}
+            <div>
+                <a href="/change_book/{{ i.id }}" class="btn">
+                    Изменить
+                </a>
+                <a href="/delete_book/{{ i.id }}" class="btn">
+                    Удалить
+                </a>
+            </div>
+        {% endif %}
+        <br>
+    {% endif %}
+    {% endfor %}
+{% endblock %}

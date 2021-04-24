@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2 align='center'>Genres</h2>
+    {% if current_user.is_authenticated and current_user.user_type == 1 %}
+        <a href="add_genre" class="btn btn-primary">Add genre</a>
+        <a href="list_of_books" class="btn btn-primary">Books</a>
+        <a href="list_of_regions" class="btn btn-primary">Regions</a>
+    {% for i in j %}
+    <div class="table_container">
+        <table class="my_table" style="border-color: #573F32; width:80%">
+            <tr class="my_row">
+                <td class="ordinary" align="center">Id</td>
+                <td class="ordinary" align="center">Name</td>
+            </tr>
+            <tr class="my_row">
+                <td class="ordinary" align="center">{{ i.id }}</td>
+                <td class="ordinary" align="center">{{ i.name }}</td>
+            </tr>
+        </table>
+    </div>
+    <br>
+        <div>
+            <a href="/change_genre/{{ i.id }}" class="btn">
+                Изменить
+            </a>
+            <a href="/delete_genre/{{ i.id }}" class="btn">
+                Удалить
+            </a>
+        </div>
+    <br>
+    {% endfor %}
+    {% endif %}
+{% endblock %}

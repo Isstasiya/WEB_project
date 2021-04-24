@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2 align='center'>Basket</h2>
+    {% if current_user.is_authenticated and current_user.user_type == 2 %}
+    <a href="list_of_books" class="btn btn-primary">Books</a>
+    <a href="orders_buy" class="btn btn-primary">Orders</a>
+    <a href="create_order" class="btn btn-primary">Create Order</a>
+    {% for i in f %}
+    <h4>{{ i.name.capitalize() }}</h4>
+    <div class="table_container">
+        <table class="my_table" style="background-color: #A7B8A5;">
+            <tr class="my_row">
+                <td class="ordinary" align="center" rowspan="2"><img src='{{ i.image }}'></td>
+                <td class="ordinary" align="center" colspan="4">
+                    Genre: {{gen}}
+                    {{ i.description }}
+                </td>
+            </tr>
+            <tr class="my_row">
+                <td class="ordinary" align="center"><a href="/add_like/{{ i.id }}">Like: {{ i.like }}</a></td>
+                <td class="ordinary" align="center"><a href="/add_dislike/{{ i.id }}">Dislike: {{ i.dislike }}</a></td>
+                <td class="ordinary" align="center"><a href="/delete_in_basket/{{ i.id }}">Remove from basket</a></td>
+                {% for h in j %}
+                    {% if h.book_id == i.id %}
+                        <td class="ordinary" align="center">Quantity: {{ h.quantity }}<br>
+                            <a href="/add_quantity/{{ h.id }}" class="btn btn-primary">+</a>  
+                            <a href="/delete_quantity/{{ h.id }}" class="btn btn-primary">-</a></td>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+        </table>
+    </div>
+    <br>
+    {% endfor %}
+    {% endif %}
+{% endblock %}

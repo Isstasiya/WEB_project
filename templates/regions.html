@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2 align='center'>Regions</h2>
+    {% if current_user.is_authenticated and current_user.user_type == 1 %}
+        <a href="add_region" class="btn btn-primary">Add region</a>
+        <a href="list_of_books" class="btn btn-primary">Books</a>
+        <a href="list_of_genres" class="btn btn-primary">Genre</a>
+    {% for i in j %}
+    <div class="table_container">
+        <table class="my_table" style="border-color: #573F32; width:80%">
+            <tr class="my_row">
+                <td class="ordinary" align="center">Id</td>
+                <td class="ordinary" align="center">Name</td>
+                <td class="ordinary" align="center">Address</td>
+            </tr>
+            <tr class="my_row">
+                <td class="ordinary" align="center">{{ i.id }}</td>
+                <td class="ordinary" align="center">{{ i.region_name }}</td>
+                <td class="ordinary" align="center">{{ i.address }}</td>
+            </tr>
+        </table>
+    </div>
+    <br>
+        <div>
+            <a href="/change_region/{{ i.id }}" class="btn">
+                Изменить
+            </a>
+            <a href="/delete_region/{{ i.id }}" class="btn">
+                Удалить
+            </a>
+        </div>
+    <br>
+    {% endfor %}
+    {% endif %}
+{% endblock %}

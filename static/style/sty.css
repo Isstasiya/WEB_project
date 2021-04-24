@@ -1,0 +1,22 @@
+body{
+    background-color: #eddcd2;
+    color: #573F32;
+}
+header{
+    background-color: #A7B8A5;
+    color: #2D362C;
+}
+main{
+    background-color: #DCB8A3;
+}
+form{
+    padding: 10%;
+    background-color: #CB997E;
+}
+table{
+    border-color: unset;
+}
+table.order{
+    border-color: #573F32;
+    width: 80%;
+}

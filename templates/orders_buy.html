@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2 align='center'>Orders</h2>
+    {% if current_user.is_authenticated and current_user.user_type == 2 %}
+        <a href="list_of_books" class="btn btn-primary">Books</a>
+        <a href="basket" class="btn btn-primary">Basket</a>
+    {% for i in j %}
+            <h4>Order #{{ i.id }}</h4>
+                <div class="table_container">
+                    <table class="my_table" style="border-color: #573F32; width:80%">
+                        <tr class="my_row">
+                            <td class="title" width="30%" align="center">Buyer</td>
+                            <td class="title" width="15%" align="center">Courier</td>
+                            <td class="title" width="15%" align="center">Books</td>
+                            <td class="title" width="15%" align="center">Time</td>
+                            <td class="title" width="15%" align="center">Is completed</td>
+                        </tr>
+                        <tr class="my_row">
+                            <td class="ordinary" align="center">{{ current_user.name }} {{ current_user.surname }}</td>
+                            {% if i.courier_id != -1 %}
+                                {% for t in cour %}
+                                    {% if t[1] == i.courier_id and t[2] == i.id %}
+                                    <td class="ordinary" align="center">{{ t[0].name }} {{ t[0].surname }} </td>
+                                    {% endif %}
+                                {% endfor %}
+                            {% else %}
+                                <td class="ordinary" align="center">Order not issued to courier </td>
+                            {% endif %}
+                            <td class="ordinary" align="center">
+                                {% for t in f %}
+                                    {% if t.order_id == i.id %}
+                                        {{ t.book.name }} x {{ t.quantity }} 
+                                        <br>
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                            <td class="ordinary" align="center">
+                                {% for t in sh %}
+                                    {% for h in t %}
+                                        {% if h.order_id == i.id %}
+                                        {{ h.time }}
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endfor %}
+                            </td>
+                            {% if i.complete %}
+                                <td class="ordinary" align="center">Finished</td>
+                            {% else %}
+                                <td class="ordinary" align="center">Is not finished</td>
+                            {% endif %}
+                        </tr>
+                    </table>
+                </div>
+            <br>
+    {% endfor %}
+    {% endif %}
+{% endblock %}
