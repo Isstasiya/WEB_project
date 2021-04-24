@@ -6,5 +6,5 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 
 class FindForm(FlaskForm):
-    text = StringField('Word', validators=[DataRequired()])
+    text = StringField('Word')
     submit = SubmitField('Submit')

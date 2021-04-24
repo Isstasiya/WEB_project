@@ -10,16 +10,14 @@
         <a href="basket" class="btn btn-primary">Basket</a>
         <a href="orders_buy" class="btn btn-primary">Orders</a>
     {% endif %}
-    <form action="" method="post">
+    <form action="" method="post" style="padding: 0%;">
         {{ form.hidden_tag() }}
-        <p>
-            {{ form.text(class="form-control", type="name") }}<br>
-            {% for error in form.text.errors %}
-                <div class="alert alert-danger" role="alert">
-                    {{ error }}
-                </div>
-            {% endfor %} {{ form.submit(type="submit", class="btn btn-primary") }}
-        </p>
+        <table width="100%", style="background-color:#DCB8A3">
+            <tr>
+                <td style="width:95%">{{ form.text(class="form-control", type="name") }}</td>
+                <td>{{ form.submit(type="submit", class="btn btn-primary") }}</td>
+        </tr>
+        </table>
     </form>
     {% for i in j %}
         {% if (i.quantity > 0 or (current_user.is_authenticated and current_user.user_type == 1)) and (txt.lower() in i.name.lower()) %}
