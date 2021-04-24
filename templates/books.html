@@ -10,15 +10,26 @@
         <a href="basket" class="btn btn-primary">Basket</a>
         <a href="orders_buy" class="btn btn-primary">Orders</a>
     {% endif %}
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.text(class="form-control", type="name") }}<br>
+            {% for error in form.text.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %} {{ form.submit(type="submit", class="btn btn-primary") }}
+        </p>
+    </form>
     {% for i in j %}
-        {% if i.quantity > 0 or (current_user.is_authenticated and current_user.user_type == 1) %}
+        {% if (i.quantity > 0 or (current_user.is_authenticated and current_user.user_type == 1)) and (txt.lower() in i.name.lower()) %}
         <h4>{{ i.name.capitalize() }}</h4>
         <div class="table_container">
             <table class="my_table" style="border-color: #90a68d">
                 <tr class="my_row">
                     <td class="ordinary" align="center" rowspan="2"><img src='{{ i.image }}'></td>
                     <td class="ordinary" align="center" colspan="3">
-                        Genre: {{gen}}
+                        <p align=left>Genre: {% for k in gen%}{%if k[1] == i.id %}{{ k[0] }}{% endif %}{% endfor %}</p>
                         {{ i.description }}
                     </td>
                 </tr>

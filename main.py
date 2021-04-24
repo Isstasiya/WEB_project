@@ -28,6 +28,7 @@ from forms.add_user import RegisterForm
 from forms.login import LoginForm
 from forms.add_region import RegionForm
 from forms.add_order_shedule import Order_Shed_Form
+from forms.find_book import FindForm
 
 
 db_session.global_init("db/store.sqlite")
@@ -510,11 +511,18 @@ def comp_order(id):
     db_sess.commit()
     return redirect("/list_of_orders")
 
-@app.route("/list_of_books")
+@app.route("/list_of_books", methods=["GET", "POST"])
 def list_book():
+    form = FindForm()
     db_sess = db_session.create_session()
     j = db_sess.query(Book).all()
-    return render_template("books.html", j=j)
+    gen = []
+    for k in j:
+        gen.append([" ".join([i.name for i in k.genres]), k.id])
+    txt = ""
+    if form.validate_on_submit():
+        txt = form.text.data
+    return render_template("books.html", j=j, gen=gen, form=form, txt=txt)
 
 @app.route('/add_book', methods=['GET', 'POST'])
 def addb():
@@ -691,3 +699,4 @@ def delete_reg(id):
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     serve(app, port=port, host='0.0.0.0')
+    ## app.run(port=5000, host='127.0.0.1')
