@@ -5,6 +5,7 @@ from wtforms.validators import DataRequired
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from waitress import serve
 import datetime as dt
+import os
 from data import db_session
 from data.user_s import User
 from data.gen_s import Genre
