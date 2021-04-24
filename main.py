@@ -687,4 +687,4 @@ def delete_reg(id):
 
 
 if __name__ == '__main__':
-    serve(app, port=8080, host='127.0.0.1')
+    serve(app, port=5000, host='127.0.0.1')
