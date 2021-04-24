@@ -7,6 +7,7 @@ from waitress import serve
 import datetime as dt
 import os
 from data import db_session
+
 from data.user_s import User
 from data.gen_s import Genre
 from data.book_s import Book
